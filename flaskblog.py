@@ -1,19 +1,32 @@
-from flask import Flask, escape, request
+from flask import Flask, escape, request, render_template, url_for
 
 app = Flask(__name__)
+
+posts = [
+    {
+        'auhtor': 'Cesare de Cal',
+        'title': 'Blog Post 1',
+        'content': 'First post content',
+        'date_posted': 'June 1st',
+    },
+    {
+        'auhtor': 'Jane Doe',
+        'title': 'Blog Post 2',
+        'content': 'Second post content',
+        'date_posted': 'June 2nd',
+    }
+]
 
 
 @app.route('/')
 @app.route('/home')
 def hello():
-    name = request.args.get("name", "World")
-    return f'<h1>Home page</h1>'
+    return render_template('home.html', posts=posts)
 
 
 @app.route('/about')
 def about():
-    name = request.args.get("name", "World")
-    return f'<h1>About Page</h1>'
+    return render_template('about.html', title='About')
 
 
 # This condition is only true if we run the script directly
